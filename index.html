@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego RGB</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>¡Adivina el color!</h1>
+    </header>
+
+    <main>
+        <section id="rules">
+            <h2>REGLAS</h2>
+            <p>'¿Conoces el sistema RGB? ¿Serías capaz de adivinar el color sólo con ver representadas sus cifras?'</p>
+            <p>Deberás escoger el cuadrado que creas correcto. ¡Ten cuidado! Contarás con 10 segundos y un máximo de 3 fallos. ¡Consigue 3 aciertos y habrás ganado!</p>
+
+            <button id="button">START</button>
+
+                <div id="dificultad">
+                    <p class="headerText">DIFICULTAD:</p> 
+                    <a href="#" class="rainbow-button" alt="Fácil"></a>
+                    <a href="#" class="rainbow-button" alt="Difícil"></a>
+                </div id="dificultad">
+           
+        </section>
+
+        <section id="RGB">
+            <div> R </div>
+            <div id="cuadradoR" class="cuadradoRGB"></div>
+            <div> G </div>
+            <div id="cuadradoG" class="cuadradoRGB"></div>
+            <div> B </div>
+            <div id="cuadradoB" class="cuadradoRGB"></div>
+        </section>
+
+        <section id="colors">
+            <div id="color1" class="cuadrado"></div>
+            <div id="color2" class="cuadrado"></div>
+            <div id="color3" class="cuadrado"></div>
+        </section>
+
+        <section id="contador">
+            <div class="aciertos"></div>
+            <div class="fallos"></div>
+        </section>
+    </main>
+    <script src="./js/src.js"></script>
+</body>
+</html>

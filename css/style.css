@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+/*HEADER Y REGLAS*/
+
+body {
+
+    background-image: url(background-smoke-color-colors-wallpaper-preview.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin:0;
+
+}
+h1 {
+    text-align: center;
+	font-size: 3rem;
+    color: white;
+	margin: 0;
+	font-family: sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	background-image: linear-gradient(
+		to right,
+		orangered,
+		orange,
+		gold,
+		lightgreen,
+		cyan,
+		dodgerblue,
+		mediumpurple,
+		hotpink,
+		orangered);
+	background-size: 110vw;
+	animation: sliding 30s linear infinite;
+    background-clip: text;
+	text-emphasis-color: transparent;
+}
+
+@keyframes sliding {
+	to {
+		background-position: -2000vw;
+	}
+}
+
+h2 {
+
+    text-shadow: 5px 5px 4px palevioletred, 3px 3px 2px white;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 2.5rem;
+    color: black;
+    padding: 1rem;
+}
+
+main {
+    
+    
+    text-align: left;
+    font-family: sans-serif;
+    color: black;
+    padding: 0rem;
+}
+
+#rules {
+    
+    background-image: url(pngtree-color-network-with-dots-on-white-background-image_310198.jpg);
+    position: relative;
+    z-index: 2;
+    opacity: 0.7;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 1.7rem;
+}
+
+
+#button {
+
+    margin: 1rem;
+
+    background: #eb94d0;
+    background-image: linear-gradient(top, #eb94d0, #33cc91);
+    background-image: linear-gradient(top, #eb94d0, #33cc91);
+    background-image: linear-gradient(top, #eb94d0, #33cc91);
+    background-image: linear-gradient(top, #eb94d0, #33cc91);
+    background-image: linear-gradient(to bottom, #eb94d0, #33cc91);
+
+    border-radius: 28;
+    border-radius: 28px;
+    text-shadow: 3px 2px 1px #9daef5;
+    box-shadow: 6px 5px 24px #666666;
+    box-shadow: 6px 5px 24px #666666;
+    box-shadow: 6px 5px 24px #666666;
+    font-family: 'Shadows Into Light', cursive;
+    color: #fafafa;
+    font-size: 27px;
+    padding: 19px;
+    text-decoration: none;
+
+}
+
+#button:hover {
+
+    background: #2079b0;
+  background-image: linear-gradient(top, #33cc91, #eb94d0);
+  background-image: linear-gradient(top, #33cc91, #eb94d0);
+  background-image: linear-gradient(top, #33cc91, #eb94d0);
+  background-image: linear-gradient(top, #33cc91, #eb94d0);
+  background-image: linear-gradient(to bottom, #33cc91, #eb94d0);
+
+  text-decoration: none;
+}
+
+#dificultad {
+    display: flex;
+    font-size: 40px;
+}
+
+a {
+    margin: 20px;
+    text-decoration:none;
+    color:#FFF;
+  }
+  .rainbow-button {
+    width: 7rem;
+    height: 6rem;
+    background-image: linear-gradient(90deg, #00C0FF 0%, #FFCF00 49%, #FC4F4F 80%, #00C0FF 100%);
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-transform:uppercase;
+    font-size:2vw;
+    font-weight:bold;
+  }
+  .rainbow-button:after {
+    content:attr(alt);
+    width: 5vw;
+    height:4vw;
+    background-color:#191919;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .rainbow-button:hover {
+    animation:slidebg 2s linear infinite;
+  }
+  
+  @keyframes slidebg {
+    to {
+      background-position:15vw;
+    }
+  }
+
+
+
+/*ELEMENTOS RGB*/
+
+#RGB {
+    display: grid;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+
+.cuadradoRGB {
+    border: 1px solid black;
+    width: 100px;
+    height: 50px;
+    margin: 1rem 0rem 4rem 0rem;
+}
+
+
+
+/*COLORES*/
+#colors {
+    display: grid;
+    position: absolute;
+    right: 1rem;
+
+}
+.cuadrado {
+    border: 1px solid black;
+    width: 120px;
+    height: 120px;
+    margin: 1rem 0rem 2rem 0rem;
+}
+
+/*CONTADOR*/
+#contador {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0%;
+    right: 50%;
+}
+
+
+
