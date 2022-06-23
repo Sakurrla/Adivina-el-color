@@ -17,7 +17,6 @@ body {
     background-size: 100%;
     margin:0;
 
-
 }
 h1 {
     text-align: center;
@@ -61,24 +60,12 @@ h2 {
 
 main {
     
+    
     text-align: left;
     font-family: sans-serif;
     color: black;
     padding: 0rem;
-    display: flex;
-    align-items: flex-start;
 }
-
-div {
-
-    display: flex;
-    align-items: center;
-    align-content: center;
-    height: max-content;
-    width: min-content;
-
-}
-
 
 #rules {
     
@@ -173,32 +160,35 @@ a {
     }
   }
 
+
+
 /*ELEMENTOS RGB*/
 
 #RGB {
-
-    font-size: 2rem;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: white;
-    margin: 2rem;
+    display: grid;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
 }
+
 .cuadradoRGB {
-    
-    width: 70px;
-    height: 60px;
-    margin: 1rem 1rem 3rem 2rem;
+    border: 1px solid black;
+    width: 100px;
+    height: 50px;
+    margin: 1rem 0rem 4rem 0rem;
 }
 
 
 
 /*COLORES*/
 #colors {
-  
- 
+    display: grid;
+    position: absolute;
+    right: 1rem;
 
 }
 .cuadrado {
-    border: 2px solid black;
+    border: 1px solid black;
     width: 120px;
     height: 120px;
     margin: 1rem 0rem 2rem 0rem;
@@ -213,3 +203,17 @@ a {
     bottom: 0%;
     right: 50%;
 }
+
+
+
+/* #cuadrado0 {
+display:none
+}
+
+#cuadrado1 {
+display:none
+}
+
+#cuadrado2 {
+display:none
+} */

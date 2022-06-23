@@ -4,6 +4,7 @@
 
 const botonDificil = document.querySelector("#botonDificil");
 const botonFacil = document.querySelector("#botonFacil");
+const newCuadrado = document.querySelector("#colors");
 
 botonFacil.addEventListener("click", () => {
   document.location.reload();
@@ -11,7 +12,6 @@ botonFacil.addEventListener("click", () => {
 
 function dificil() {
   console.log("Difícil");
-  const newCuadrado = document.querySelector("#colors");
 
   //Añadimos los nuevos DIV
 
@@ -32,9 +32,19 @@ function dificil() {
   newDiv3.className = "cuadrado";
   newDiv3.textContent = "6";
   newCuadrado.append(newDiv3);
+
+  /*   for (let i=4; i<=6, i++) {
+    const newDiv = document.createElement("div");
+    newDiv.className = "cuadrado";
+    newDiv.textContent = i;
+    
+  } */
 }
 
-botonDificil.addEventListener("click", dificil);
+botonDificil.addEventListener("click", () => {
+  const falso = rgbFalse(rgbOriginal);
+  dificil(rgbOriginal, falso);
+});
 
 /** POR QUÉ NO ME PINTA LOS COLORES NUEVOS? */
 
@@ -112,32 +122,32 @@ const cuadradoColores = document.querySelectorAll("#colors .cuadrado");
 //Recuperamos el array de getRandom()
 const rgbOriginal = getRandom(cuadradoColores);
 
+function rgbFalse(rgbOriginal) {
+  const rgbFalse = [];
+  for (let i = 0; i < rgbOriginal.length - 1; i++) {
+    const numero = Math.round(Math.random() * 50);
+    const esSuma = Math.round(Math.random());
+
+    if (esSuma === 0 && rgbOriginal[i] > 55) {
+      //si suma es 0 interpretamos que va a restar
+      rgbFalse.push(rgbOriginal[i] - numero);
+    } else if (esSuma === 1 && rgbOriginal[i] <= 205) {
+      //si suma es 1 se lo sumamos al valor original
+      rgbFalse.push(rgbOriginal[i] + numero);
+    } else if (esSuma === 0) {
+      //como no podía restarlo antes porque podíamos tener un número negativo, lo sumamos
+      rgbFalse.push(rgbOriginal[i] + numero);
+    } else {
+      //Si no se ha podido sumar el número antes, lo restamos
+      rgbFalse.push(rgbOriginal[i] - numero);
+    }
+  }
+  return rgbFalse;
+}
+
 /**FUNCIÓN PRINCIPAL */
 function main() {
   //Función que varía el RGB original
-
-  function rgbFalse(rgbOriginal) {
-    const rgbFalse = [];
-    for (let i = 0; i < rgbOriginal.length - 1; i++) {
-      const numero = Math.round(Math.random() * 50);
-      const esSuma = Math.round(Math.random());
-
-      if (esSuma === 0 && rgbOriginal[i] > 55) {
-        //si suma es 0 interpretamos que va a restar
-        rgbFalse.push(rgbOriginal[i] - numero);
-      } else if (esSuma === 1 && rgbOriginal[i] <= 205) {
-        //si suma es 1 se lo sumamos al valor original
-        rgbFalse.push(rgbOriginal[i] + numero);
-      } else if (esSuma === 0) {
-        //como no podía restarlo antes porque podíamos tener un número negativo, lo sumamos
-        rgbFalse.push(rgbOriginal[i] + numero);
-      } else {
-        //Si no se ha podido sumar el número antes, lo restamos
-        rgbFalse.push(rgbOriginal[i] - numero);
-      }
-    }
-    return rgbFalse;
-  }
 
   rgbFalse(rgbOriginal);
 
@@ -177,6 +187,8 @@ function main() {
   cuadradoB.textContent = numB;
 }
 
+/** ESTO MEJOR LO METO EN UNA FUNCIÓN */
+
 const startButton = document.querySelector("button");
 startButton.addEventListener("click", () => {
   let totalTime = 10;
@@ -200,28 +212,34 @@ startButton.addEventListener("click", () => {
 const aciertos = document.querySelector("#aciertos");
 const fallos = document.querySelector("#fallos");
 
-function acierta() {
-  for (let i = 0; i <= 3; i++) {
-    console.log(i);
+let contadorAciertos = 0;
+let contadorFallos = 0;
 
-    aciertos.textContent = i;
+//EVENTO DE CLICK SOBRE LOS DIV DE COLORES
+
+newCuadrado.addEventListener("click", (event) => {
+  if (event.target.matches(".cuadrado")) {
+    const rgbTarget = event.target.style.backgroundColor;
+
+    const rgbOrigi = `rgb(${rgbOriginal[0]}, ${rgbOriginal[1]}, ${rgbOriginal[2]})`;
+    if (rgbTarget === rgbOrigi) {
+      contadorAciertos++;
+      aciertos.textContent = contadorAciertos;
+    } else {
+      contadorFallos++;
+      fallos.textContent = contadorFallos;
+    }
+
+    if (contadorFallos === 3) {
+      const div = document.createElement("div");
+      div.textContent = `😞`;
+      fallos.append(div);
+    } else if (contadorAciertos === 3) {
+      const div = document.createElement("div");
+      div.textContent = `😎`;
+      fallos.append(div);
+    }
   }
-}
+});
 
-acierta();
-
-let contador = 0;
-
-const handleClickAddButton = () => {
-  if (contador <= 3) {
-    const div = document.createElement("div");
-    div.textContent = `😞`;
-    fallos.append(li);
-  }
-};
-
-/** ME FALTA:
- * 1- QUE LOS CUADRADOS CREADOS EN EL DOM TENGA BACKGROUND COLOR
- * 2- QUE SUME EN EL CONTADOR DE ACIERTOS O FALLOS CUANDO MARQUE LA OPCIÓN CORRECTA
- * 3- QUE EL CONTADOR ME VAYA SUMANDO Y NO APAREZCA DE GOLPE EL Nº FINAL
- */
+///
