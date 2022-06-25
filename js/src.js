@@ -1,44 +1,39 @@
 "use strict";
 
-/** SELECCIONAMOS DIFICULTAD*/
+/** HACEMOS TODA LA SELECCIÓN DE ELEMENTOS*/
+const colores = document.querySelector("#colors");
+const startButton = document.querySelector("button");
+const aciertos = document.querySelector("#aciertos");
+const fallos = document.querySelector("#fallos");
+const contador = document.querySelector("#contador");
+const cuadradoColores = document.querySelectorAll("#colors .cuadrado");
+const aJugar = document.querySelector("#dificultad");
 
-const botonDificil = document.querySelector("#botonDificil");
-const botonFacil = document.querySelector("#botonFacil");
-const newCuadrado = document.querySelector("#colors");
+/** DECLARAMOS LAS VARIABLES CON LAS QUE TRABAJAREMOS */
+let contadorAciertos = 0;
+let contadorFallos = 0;
+
+let startInterval;
+let totalTime = 10;
+
+//Recuperamos el array de getRandom(), para poder seleccionar color R, color G, color B y la id.
+const rgbOriginal = getRandom(cuadradoColores);
+const rgbVerdadero = `rgb(${rgbOriginal[0]}, ${rgbOriginal[1]}, ${rgbOriginal[2]})`;
 
 botonFacil.addEventListener("click", () => {
-  document.location.reload();
+  aJugar.textContent = "¡PREPÁRATE Y DALE A START!";
 });
 
 function dificil() {
-  console.log("Difícil");
-
-  //Añadimos los nuevos DIV
-
-  // Div1
-  const newDiv = document.createElement("div");
-  newDiv.className = "cuadrado";
-  newDiv.textContent = "4";
-  newCuadrado.append(newDiv);
-
-  // Div2
-  const newDiv2 = document.createElement("div");
-  newDiv2.className = "cuadrado";
-  newDiv2.textContent = "5";
-  newCuadrado.append(newDiv2);
-
-  // Div3
-  const newDiv3 = document.createElement("div");
-  newDiv3.className = "cuadrado";
-  newDiv3.textContent = "6";
-  newCuadrado.append(newDiv3);
-
-  /*   for (let i=4; i<=6, i++) {
+  for (let i = 3; i <= 5; i++) {
+    const falso = rgbFalse(rgbOriginal);
     const newDiv = document.createElement("div");
+    newDiv.setAttribute("id", i);
     newDiv.className = "cuadrado";
-    newDiv.textContent = i;
-    
-  } */
+    colores.append(newDiv);
+    aJugar.textContent =
+      "¿ACEPTAS EL DESAFÍO? ¡DALE A START Y DEMUESTRA LO QUE VALES!";
+  }
 }
 
 botonDificil.addEventListener("click", () => {
@@ -46,62 +41,9 @@ botonDificil.addEventListener("click", () => {
   dificil(rgbOriginal, falso);
 });
 
-/** POR QUÉ NO ME PINTA LOS COLORES NUEVOS? */
-
-/* botonDificil.addEventListener("click", () => {
-  console.log("Difícil");
-  const newCuadrado = document.querySelector("#colors");
-
-  //Añadimos los nuevos DIV
-
-  // Div1
-  const newDiv = document.createElement("div");
-  newDiv.className = "cuadrado";
-  newDiv.textContent = "Soy cuadrado4";
-  newCuadrado.append(newDiv);
-
-  // Div2
-  const newDiv2 = document.createElement("div");
-  newDiv2.className = "cuadrado";
-  newDiv2.textContent = "Soy cuadrado5";
-  newCuadrado.append(newDiv2);
-
-  // Div3
-  const newDiv3 = document.createElement("div");
-  newDiv3.className = "cuadrado";
-  newDiv3.textContent = "Soy cuadrado6";
-  newCuadrado.append(newDiv3);
-}); */
-
-/**Prueba para los fragmentos */
-/* const ul = document.querySelector("#colors");
-const colores = ["blanco", "azul", "verde"];
-colores.className = "cuadrado";
-
-const frag = document.createDocumentFragment();
-frag.className = "cuadrado";
-
-// Recorremos el array de colores y en cada vuelta creamos un li nuevo
-// con el texto del color y lo añadimos al fragmento
-for (const color of colores) {
-  const liColor = document.createElement("div");
-
-  liColor.textContent = color;
-
-  frag.append(liColor);
-}
-
-frag.className = "cuadrado";
-
-console.log(frag);
-
-// Añadimos el fragmento con todos los li a la lista
-ul.append(frag); */
-
-/**CREAMOS LA FUNCIÓN PARA EL NÚMERO ALEATORIO */
-
-/** Con esta función creo un array donde voy a pushear los números RGB y un número aleatorio entre 0 y 2 para añadir id*/
+/**Creamos función para número aleatorio */
 function getRandom(cuadradoColores) {
+  // Con esta función creamos un array donde vamos a pushear los números RGB y un número aleatorio entre 0 y 2 para añadir id
   const rgbArray = [];
 
   for (let i = 0; i < 3; i++) {
@@ -109,19 +51,13 @@ function getRandom(cuadradoColores) {
     rgbArray.push(aleatoryNum);
   }
 
-  //añadimos un último número aleatorio (id) para cada div
+  //Añadimos un último número aleatorio (id) para cada div
   const id = Math.floor(Math.random() * cuadradoColores.length);
-
   rgbArray.push(id);
-
-  console.log(rgbArray);
   return rgbArray;
 }
-/** Seleccionamos los cuadrados */
-const cuadradoColores = document.querySelectorAll("#colors .cuadrado");
-//Recuperamos el array de getRandom()
-const rgbOriginal = getRandom(cuadradoColores);
 
+/** Creamos la función donde sumaremos o restaremos números diferentes para los colores falsos */
 function rgbFalse(rgbOriginal) {
   const rgbFalse = [];
   for (let i = 0; i < rgbOriginal.length - 1; i++) {
@@ -145,34 +81,56 @@ function rgbFalse(rgbOriginal) {
   return rgbFalse;
 }
 
-/**FUNCIÓN PRINCIPAL */
+/** Creamos la función de la cuenta regresiva */
+function cuentaAtras() {
+  totalTime = 10;
+  startInterval = setInterval(() => {
+    startButton.innerHTML = totalTime;
+    //cuando el contador esté a 0, limpiamos el intervalo
+    if (totalTime === 0) {
+      clearInterval(startInterval);
+      startButton.textContent = "RETRY";
+      contadorFallos++;
+      fallos.textContent = contadorFallos;
+    }
+    totalTime--;
+  }, 1000);
+
+  if (contadorFallos === 3) {
+    contador.textContent = `PRUEBA OTRA VEZ...`;
+    clearInterval(startInterval);
+    setInterval(() => {
+      document.location.reload();
+    }, 1500);
+  }
+}
+
+/**Creamos la función principal con la que "pintaremos" el juego */
 function main() {
-  //Función que varía el RGB original
+  //Selecciono los div con propiedad cuadrado, en este caso son los cuadrado de colores
+  const cuadradoColores = document.querySelectorAll("#colors .cuadrado");
+  //Recuperamos el array de getRandom(), para poder seleccionar color R, color G, color B y la id.
+  const rgbOriginal = getRandom(cuadradoColores);
 
-  rgbFalse(rgbOriginal);
-
-  /** CREAMOS LOS CUADRADOS DE COLOR */
+  /** Por qué no funciona si no declaro las líneas 89 y 91 en ámbito local??? */
 
   //Recorremos los div .cuadrado
-
   for (const cuadrado of cuadradoColores) {
     //Le damos un estilo aleatorio a todos los div
     const arrRGBFalse = rgbFalse(rgbOriginal);
 
-    //ASignamos el background colorfalso
+    //Cambiamos el background color de todos los cuadrados por un color falso aleatorio
     cuadrado.style.backgroundColor = `rgb(${arrRGBFalse[0]}, ${arrRGBFalse[1]}, ${arrRGBFalse[2]} )`;
 
     //Comprobamos si el ID del div se corresponde con el id creado en el array de rgbOriginal[3]
     if (rgbOriginal[3] === parseInt(cuadrado.id)) {
-      //Cambiamos el background color de todos los cuadrados por un color aleatorio
-
-      //Si el cuadrado que recorremos es el original le damos el color de fondo original
-      console.log(rgbOriginal[3]); //Por qué no aparece este log en consola?
-      cuadrado.style.backgroundColor = `rgb(${rgbOriginal[0]}, ${rgbOriginal[1]}, ${rgbOriginal[2]})`;
+      //Si el cuadrado que recorremos es el original le damos el color de fondo verdadero
+      console.log(rgbOriginal[3]);
+      cuadrado.style.backgroundColor = rgbVerdadero;
     }
   }
 
-  /**CREAMOS LOS CUADRADOS RGB */
+  /**CREAMOS LOS CUADRADOS RGB y los seleccionamos */
   let numR = rgbOriginal[0];
   let numG = rgbOriginal[1];
   let numB = rgbOriginal[2];
@@ -187,41 +145,22 @@ function main() {
   cuadradoB.textContent = numB;
 }
 
-/** ESTO MEJOR LO METO EN UNA FUNCIÓN */
-
-const startButton = document.querySelector("button");
+/**Creamos función para empezar la partida */
 startButton.addEventListener("click", () => {
-  let totalTime = 10;
-
-  const startInterval = setInterval(() => {
-    startButton.innerHTML = totalTime;
-
-    //cuando el contador esté a 0, limpiamos el intervalo
-    if (totalTime === 0) {
-      clearInterval(startInterval);
-      startButton.innerHTML = "RETRY";
-    }
-    totalTime--;
-  }, 1000);
-
-  //Llamamos a la función main para que pinte todo
+  cuentaAtras();
   main();
+  aJugar.textContent = "¡ADELANTE!";
 });
 
-/** CREAMOS CONTADOR Y FUNCIÓN DE FALLOS Y ACIERTOS */
-const aciertos = document.querySelector("#aciertos");
-const fallos = document.querySelector("#fallos");
-
-let contadorAciertos = 0;
-let contadorFallos = 0;
-
-//EVENTO DE CLICK SOBRE LOS DIV DE COLORES
-
-newCuadrado.addEventListener("click", (event) => {
+/**Creamos el evento de click para seleccionar un cuadrado */
+colores.addEventListener("click", (event) => {
+  // Si hago click sobre un elemento con la propiedad cuadrado, limpio el intervalo que es la cuenta regresiva (funciona bien)
   if (event.target.matches(".cuadrado")) {
+    clearInterval(startInterval);
+    startButton.textContent = "RETRY";
     const rgbTarget = event.target.style.backgroundColor;
+    const rgbOrigi = rgbVerdadero;
 
-    const rgbOrigi = `rgb(${rgbOriginal[0]}, ${rgbOriginal[1]}, ${rgbOriginal[2]})`;
     if (rgbTarget === rgbOrigi) {
       contadorAciertos++;
       aciertos.textContent = contadorAciertos;
@@ -230,16 +169,18 @@ newCuadrado.addEventListener("click", (event) => {
       fallos.textContent = contadorFallos;
     }
 
-    if (contadorFallos === 3) {
-      const div = document.createElement("div");
-      div.textContent = `😞`;
-      fallos.append(div);
-    } else if (contadorAciertos === 3) {
-      const div = document.createElement("div");
-      div.textContent = `😎`;
-      fallos.append(div);
+    if (contadorAciertos === 3) {
+      contador.textContent = `¡HAS GANADO!`;
+      clearInterval(startInterval);
+      setInterval(() => {
+        document.location.reload();
+      }, 1500);
+    } else if (contadorFallos === 3) {
+      contador.textContent = `PRUEBA OTRA VEZ...`;
+      clearInterval(startInterval);
+      setInterval(() => {
+        document.location.reload();
+      }, 1500);
     }
   }
 });
-
-///
